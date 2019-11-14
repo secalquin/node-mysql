@@ -76,8 +76,12 @@ let getProduct = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdesc
 router.post('/product',(req,res) =>{
 	const { name, sku, upc, price, iva } = req.body;
 	//Validate Request.
+	mysqlConnection.query("CALL new_product(?,?,?,?,?)",[name, sku, upc, price, iva],(err,rows,fields) =>{
 
-
+		if(!err){
+			
+		}
+	});
 });
 
 
