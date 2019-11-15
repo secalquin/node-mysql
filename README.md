@@ -4,7 +4,7 @@
 
 <h4><tt>GET</tt></h4>
 <p>/products</p>
-<p>/products/{id}</p>
+<p>/products/{ id }</p>
 
 <h4><tt>POST</tt></h4>
 <p>/product</p>
