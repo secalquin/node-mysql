@@ -73,7 +73,7 @@
 - `headers`: 
    - `Content-Type`: application/json
 - `params`: Query Params
-   - `id`: is a primary key from product. 
+   - `id`: It is the primary key of the product.
    
 #### Example JSON:
 ```yaml
