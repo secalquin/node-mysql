@@ -2,6 +2,9 @@
 
 ## Product
 
+### Basic Model Example
+![alt text](https://image.prntscr.com/image/N5tHRSawT4qyPJvxz-7wNw.png)
+
 ### GET /products
 - `headers`: 
    - `Content-Type`: application/json
