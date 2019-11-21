@@ -60,11 +60,13 @@ let getProduct = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdesc
 		            };
 		            result.push(index[row.prd_id]);
 		        }
-		        index[row.prd_id].werehouse.push({
-		            id: row.war_id,
-		            name: row.war_name,
-		            stock: row.war_stock
-		        });
+		        if(row.war_id != null){
+			        	index[row.prd_id].werehouse.push({
+				            id: row.war_id,
+				            name: row.war_name,
+				            stock: row.war_stockb
+		        	});
+		        }
 		    });
 		    res.json(result[0]);
 		}else{
