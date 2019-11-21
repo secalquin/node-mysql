@@ -8,7 +8,7 @@ let getProducts = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdes
 		var result = [], index = {};
 		if(!err){
 			//res.json(rowsPrd);
-
+			
 			rowsPrd.forEach(function (row) {
 		        if ( !(row.prd_id in index) ) {
 		            index[row.prd_id] = {
