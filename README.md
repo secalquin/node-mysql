@@ -112,19 +112,6 @@
    "sku": "64905740",
    "upc": 1111111111,
    "price": 10000,
-   "iva": 19,
-   "werehouse": [
-      {
-         "id": 1,
-         "name": "Tienda Oeste",
-         "stock": 100
-      },
-      {
-         "id": 2,
-         "name": "Tienda Este",
-         "stock": 1
-      }
-   ]
 }
 ```
 
