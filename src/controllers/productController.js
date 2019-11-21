@@ -24,11 +24,13 @@ let getProducts = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdes
 		            };
 		            result.push(index[row.prd_id]);
 		        }
-		        index[row.prd_id].werehouse.push({
-		            id: row.war_id,
-		            name: row.war_name,
-		            stock: row.war_stockb
-		        });
+		        if(row.war_id != null){
+			        	index[row.prd_id].werehouse.push({
+				            id: row.war_id,
+				            name: row.war_name,
+				            stock: row.war_stockb
+		        	});
+		        }
 		    });
 		    res.json(result);
 		}else{
@@ -39,7 +41,7 @@ let getProducts = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdes
 
 controller.find = (req,res) => {
 const { id } = req.params;
-let getProduct = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdesc,PRD.short_description as prd_shortdesc,PRD.price as prd_price,PRD.iva as prd_iva,PRD.sku as prd_sku,PRD.name as prd_name,PRD.id as prd_id,WAR.id as war_id,WAR.name as war_name,WAR.stock as war_stock FROM PRODUCTS PRD RIGHT JOIN WAREHOUSE WAR ON WAR.PRODUCTS_ID = PRD.ID WHERE PRD.ID = ?";
+let getProduct = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdesc,PRD.short_description as prd_shortdesc,PRD.price as prd_price,PRD.iva as prd_iva,PRD.sku as prd_sku,PRD.name as prd_name,PRD.id as prd_id,WAR.id as war_id,WAR.name as war_name,WAR.stock as war_stock FROM PRODUCTS PRD LEFT JOIN WAREHOUSE WAR ON WAR.PRODUCTS_ID = PRD.ID WHERE PRD.ID = ?";
 	mysqlConnection.query(getProduct,[id],(err,rowsPrd,fields) =>{
 		var result = [], index = {};
 		if(!err){
