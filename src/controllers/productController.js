@@ -41,6 +41,11 @@ let getProducts = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdes
 
 controller.find = (req,res) => {
 const { id } = req.params;
+const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+	  return res.status(422).json({ errors: errors.array() });
+	}
+	
 let getProduct = "SELECT PRD.upc as prd_upc,PRD.long_description as prd_longdesc,PRD.short_description as prd_shortdesc,PRD.price as prd_price,PRD.iva as prd_iva,PRD.sku as prd_sku,PRD.name as prd_name,PRD.id as prd_id,WAR.id as war_id,WAR.name as war_name,WAR.stock as war_stock FROM PRODUCTS PRD LEFT JOIN WAREHOUSE WAR ON WAR.PRODUCTS_ID = PRD.ID WHERE PRD.ID = ?";
 	mysqlConnection.query(getProduct,[id],(err,rowsPrd,fields) =>{
 		var result = [], index = {};
@@ -91,6 +96,18 @@ controller.save = (req,res) =>{
 			console.log(err);
 		}
 	});
+}
+
+controller.update = (req, res) => {
+
+	const { name, sku, upc, long_description, short_description, price } = req.body;
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+	  return res.status(422).json({ errors: errors.array() });
+	}
+
+
+
 }
 
 

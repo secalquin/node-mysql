@@ -8,7 +8,54 @@ const productController = require('../controllers/productController');
 
 
 router.get('/products', productController.list);
-router.get('/products/:id', productController.find);
+router.get('/products/:id',[
+oneOf([
+        check('id')
+		.custom(value => {
+				return new Promise((resolve, reject) => {
+					//reject(new Error('id Already exists ' + value));
+					let validateExitsID = "SELECT id FROM PRODUCTS WHERE id LIKE ?";
+					mysqlConnection.query(validateExitsID,[value],(err,results,fields) =>{
+						if (err){
+							reject(err);
+						}
+			             if (results.length>0){
+			             	resolve();
+			             }else{
+			             	reject(new Error('ID does not exist'));
+			             }
+					})
+			    })
+			})	
+    ])
+],productController.find);
+
+router.post('/product/:id',[
+	oneOf([
+        check('id')
+		.custom(value => {
+				return new Promise((resolve, reject) => {
+					//reject(new Error('id Already exists ' + value));
+					let validateExitsID = "SELECT id FROM PRODUCTS WHERE id LIKE ?";
+					mysqlConnection.query(validateExitsID,[value],(err,results,fields) =>{
+						if (err){
+							reject(err);
+						}
+			             if (results.length>0){
+			             	resolve();
+			             }else{
+			             	reject(new Error('ID does not exist'));
+			             }
+					})
+			    })
+			})	
+    ])
+
+],productController.update);
+
+
+
+
 
 router.post('/product',[
 	/*
