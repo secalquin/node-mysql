@@ -1,15 +1,15 @@
 const express = require('express');
 const mysqlconnection = require('../database'); //databaseconexion
-const router = express.router(); //router, create route for access
-const { check, oneof } = require('express-validator'); //library for validate request.
+const router = express.Router(); //router, create route for access
+const { check, oneOf } = require('express-validator'); //library for validate request.
 
-const productcontroller = require('../controllers/productcontroller');
+const productcontroller = require('../controllers/productController');
 
 
 
 router.get('/products', productcontroller.list);
 router.get('/products/:id', [
-	oneof([
+	oneOf([
 		check('id')
 			.custom(value => {
 				return new promise((resolve, reject) => {
@@ -31,7 +31,7 @@ router.get('/products/:id', [
 ], productcontroller.find);
 
 router.post('/product/:id', [
-	oneof([
+	oneOf([
 		check('id')
 			.custom(value => {
 				return new promise((resolve, reject) => {
@@ -61,22 +61,22 @@ router.post('/product', [
 	/*
 	 * validate request.
      */
-	oneof([
+	oneOf([
 		check('name')
-			.exists().withmessage('name is required')
-			.trim().not().isempty().withmessage('name cannot be empty')
-			.islength({ min: 10 }).withmessage('must be at least 10 chars long')
-			.islength({ max: 100 }).withmessage('must be at maximum of 100 characters long'),
+			.exists().withMessage('name is required')
+			.trim().not().isEmpty().withMessage('name cannot be empty')
+			.isLength({ min: 10 }).withMessage('must be at least 10 chars long')
+			.isLength({ max: 100 }).withMessage('must be at maximum of 100 characters long'),
 	]),
 
-	oneof([
+	oneOf([
 		check('sku')
 			.not()
-			.isempty()
+			.isEmpty()
 			.trim() //trims characters (whitespace by default) at the beginning and at the end of a string
 			.escape() //replaces <, >, &, ', " and / with their corresponding html entities
-			.islength({ min: 5 }).withmessage('must be at least 5 chars long')
-			.islength({ max: 15 }).withmessage('must be at maximum of 15 characters long')
+			.isLength({ min: 5 }).withMessage('must be at least 5 chars long')
+			.isLength({ max: 15 }).withMessage('must be at maximum of 15 characters long')
 			.custom(value => {
 				return new promise((resolve, reject) => {
 					let validatebysku = "select sku from products where sku like ?";
@@ -94,14 +94,14 @@ router.post('/product', [
 			})
 	]),
 
-	oneof([
+	oneOf([
 		check('upc')
 			.not()
-			.isempty()
+			.isEmpty()
 			.trim() //trims characters (whitespace by default) at the beginning and at the end of a string
 			.escape() //replaces <, >, &, ', " and / with their corresponding html entities
-			.islength({ min: 8 }).withmessage('must be at least 8 chars long')
-			.islength({ max: 11 }).withmessage('must be at maximum of 15 characters long')
+			.isLength({ min: 8 }).withMessage('must be at least 8 chars long')
+			.isLength({ max: 11 }).withMessage('must be at maximum of 15 characters long')
 			.custom(value => {
 				return new promise((resolve, reject) => {
 					let validatebyupc = "select upc from products where upc like ?";
@@ -119,33 +119,33 @@ router.post('/product', [
 			})
 	]),
 
-	oneof([
+	oneOf([
 		check('long_description')
 			.not()
-			.isempty()
+			.isEmpty()
 			.trim() //trims characters (whitespace by default) at the beginning and at the end of a string
 			.escape() //replaces <, >, &, ', " and / with their corresponding html entities
-			.islength({ min: 1 }).withmessage('must be at least 1 chars long')
-			.islength({ max: 10000 }).withmessage('must be at maximum of 10000 characters long')
+			.isLength({ min: 1 }).withMessage('must be at least 1 chars long')
+			.isLength({ max: 10000 }).withMessage('must be at maximum of 10000 characters long')
 	]),
 
-	oneof([
+	oneOf([
 		check('short_description')
 			.not()
-			.isempty()
+			.isEmpty()
 			.trim() //trims characters (whitespace by default) at the beginning and at the end of a string
 			.escape() //replaces <, >, &, ', " and / with their corresponding html entities
-			.islength({ min: 1 }).withmessage('must be at least 1 chars long')
-			.islength({ max: 1000 }).withmessage('must be at maximum of 1000 characters long')
+			.isLength({ min: 1 }).withMessage('must be at least 1 chars long')
+			.isLength({ max: 1000 }).withMessage('must be at maximum of 1000 characters long')
 	]),
 
-	oneof([
+	oneOf([
 		check('price')
 			.not()
-			.isempty()
-			.isnumeric().withmessage('must be at number')
-			.islength({ min: 1 }).withmessage('must be at least 8 chars long')
-			.islength({ max: 20 }).withmessage('must be at maximum of 15 characters long')
+			.isEmpty()
+			.isNumeric().withMessage('must be at number')
+			.isLength({ min: 1 }).withMessage('must be at least 8 chars long')
+			.isLength({ max: 20 }).withMessage('must be at maximum of 15 characters long')
 	])
 
 ], productcontroller.save);
