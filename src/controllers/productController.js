@@ -1,5 +1,5 @@
 const mysqlconnection = require('../database'); //databaseconexion
-const { validationresult } = require('express-validator'); //library for validate request.
+const { validationResult } = require('express-validator'); //library for validate request.
 const controller = {};
 
 controller.list = (req, res) => {
@@ -9,7 +9,7 @@ let getproducts = "select prd.upc as prd_upc,prd.long_description as prd_longdes
 		if(!err){
 			//res.json(rowsprd);
 			
-			rowsprd.foreach(function (row) {
+			rowsprd.forEach(function (row) {
 		        if ( !(row.prd_id in index) ) {
 		            index[row.prd_id] = {
 		                id: row.prd_id,
@@ -41,8 +41,8 @@ let getproducts = "select prd.upc as prd_upc,prd.long_description as prd_longdes
 
 controller.find = (req,res) => {
 const { id } = req.params;
-const errors = validationresult(req);
-	if (!errors.isempty()) {
+const errors = validationResult(req);
+	if (!errors.isEmpty()) {
 	  return res.status(422).json({ errors: errors.array() });
 	}
 	
@@ -52,7 +52,7 @@ let getproduct = "select prd.upc as prd_upc,prd.long_description as prd_longdesc
 		if(!err){
 			//res.json(rowsprd);
 
-			rowsprd.foreach(function (row) {
+			rowsprd.forEach(function (row) {
 		        if ( !(row.prd_id in index) ) {
 		            index[row.prd_id] = {
 		                id: row.prd_id,
@@ -82,8 +82,8 @@ let getproduct = "select prd.upc as prd_upc,prd.long_description as prd_longdesc
 
 controller.save = (req,res) =>{
 	const { name, sku, upc, long_description, short_description, price } = req.body;
-	const errors = validationresult(req);
-	if (!errors.isempty()) {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
 	  return res.status(422).json({ errors: errors.array() });
 	}
 
@@ -101,8 +101,8 @@ controller.save = (req,res) =>{
 controller.update = (req, res) => {
 
 	const { name, sku, upc, long_description, short_description, price } = req.body;
-	const errors = validationresult(req);
-	if (!errors.isempty()) {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
 	  return res.status(422).json({ errors: errors.array() });
 	}
 

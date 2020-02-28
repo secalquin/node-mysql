@@ -12,7 +12,7 @@ router.get('/products/:id', [
 	oneOf([
 		check('id')
 			.custom(value => {
-				return new promise((resolve, reject) => {
+				return new Promise((resolve, reject) => {
 					//reject(new error('id already exists ' + value));
 					let validateexitsid = "select id from products where id like ?";
 					mysqlconnection.query(validateexitsid, [value], (err, results, fields) => {
@@ -34,7 +34,7 @@ router.post('/product/:id', [
 	oneOf([
 		check('id')
 			.custom(value => {
-				return new promise((resolve, reject) => {
+				return new Promise((resolve, reject) => {
 					//reject(new error('id already exists ' + value));
 					let validateexitsid = "select id from products where id like ?";
 					mysqlconnection.query(validateexitsid, [value], (err, results, fields) => {
@@ -78,7 +78,7 @@ router.post('/product', [
 			.isLength({ min: 5 }).withMessage('must be at least 5 chars long')
 			.isLength({ max: 15 }).withMessage('must be at maximum of 15 characters long')
 			.custom(value => {
-				return new promise((resolve, reject) => {
+				return new Promise((resolve, reject) => {
 					let validatebysku = "select sku from products where sku like ?";
 					mysqlconnection.query(validatebysku, [value], (err, results, fields) => {
 						if (err) {
@@ -103,7 +103,7 @@ router.post('/product', [
 			.isLength({ min: 8 }).withMessage('must be at least 8 chars long')
 			.isLength({ max: 11 }).withMessage('must be at maximum of 15 characters long')
 			.custom(value => {
-				return new promise((resolve, reject) => {
+				return new Promise((resolve, reject) => {
 					let validatebyupc = "select upc from products where upc like ?";
 					mysqlconnection.query(validatebyupc, [value], (err, results, fields) => {
 						if (err) {
