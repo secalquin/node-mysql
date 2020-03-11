@@ -1,4 +1,4 @@
-# API Example NodeJS
+# API Example NodeJS: Author Sebastián Calquín, Backend Developer.
 
 ## Product
 
