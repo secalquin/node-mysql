@@ -8,6 +8,7 @@ const productcontroller = require('../controllers/productController');
 
 
 router.get('/products', productcontroller.list);
+router.get('/test', productcontroller.test);
 router.get('/products/:id', [
 	oneOf([
 		check('id')

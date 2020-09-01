@@ -39,6 +39,10 @@ let getproducts = "select prd.upc as prd_upc,prd.long_description as prd_longdes
 	});
 };
 
+controller.test = (req, res) => {
+	res.json("Hello World");
+};
+
 controller.find = (req,res) => {
 const { id } = req.params;
 const errors = validationResult(req);
