@@ -1,7 +1,7 @@
 FROM node:12
 
 # Create app directory
-WORKDIR D:\laragon\www\apps-docker
+WORKDIR D:/laragon/www/apps-docker
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
