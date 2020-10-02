@@ -1,4 +1,3 @@
-#TRABAJO PARA ESCUCHAR CAMBIOS EN MASTER/CH
 on: push
 name: npm build, lint, test and publish
 jobs:
